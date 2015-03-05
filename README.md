@@ -4,7 +4,7 @@
 
 This plugin module provides a simplistic service registry based on a
 key-value store interface. This is similar to the interface provided
-by Consol, etcd and Zookeeper.  The keys are organized into a tree
+by Consul, etcd and Zookeeper.  The keys are organized into a tree
 structure.
 
 IMPORTANT: this plugin does *not* provide a distributed
@@ -31,6 +31,23 @@ Tested on: Node 0.10.36, Seneca 0.6.1
 [Annotated Source Code](http://rjrodger.github.io/seneca-registry/doc/registry.html).
 
 
+
+### Quick Example
+
+Get and set a key
+
+```js
+require('seneca')()
+  .use('registry')
+  .start()
+  .wait('role:registry,cmd:set,key:color,value:red')
+  .wait('role:registry,cmd:get,key:color')
+  .step(function(data){
+    console.log( data.value ) // == "red"
+    return true;
+  })
+  .end()
+```
 
 
 

@@ -35,7 +35,7 @@ describe('plugin', function(){
         return true;
       })
 
-      .end(fin)
+      .end()
   })
 
 
@@ -99,7 +99,7 @@ describe('plugin', function(){
         return true;
       })
 
-      .end(fin)
+      .end()
   })
 
 
@@ -137,7 +137,7 @@ describe('plugin', function(){
         return true;
       })
 
-      .end(fin)
+      .end()
   })
 
 

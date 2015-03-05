@@ -1,0 +1,42 @@
+{
+  "name": "seneca-registry",
+  "version": "0.1.0",
+  "description": "Seneca service registry (simplistic single instance).",
+  "main": "registry.js",
+  "scripts": {
+    "test": "./test.sh",
+    "build": "./build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rjrodger/seneca-registry"
+  },
+  "keywords": [
+    "seneca",
+    "plugin",
+    "service",
+    "registry",
+    "key",
+    "value",
+    "store"
+  ],
+  "author": "Richard Rodger (http://richardrodger.com)",
+  "contributors": [
+    "Richard Rodger (http://richardrodger.com)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "docco": "~0.6.3",
+    "jshint": "~2.6.0",
+    "mocha": "~2.1.0",
+    "seneca": "^0.6.1"
+  },
+  "files": [
+    "LICENSE.txt",
+    "README.md",
+    "registry.js"
+  ]
+}

@@ -59,7 +59,7 @@ tree structure as a namespace mechanism. In particular, you can remove
 and list keys recursively.
 
 
-```
+```js
 require('seneca')()
   .use('registry')
   .start()
@@ -87,7 +87,7 @@ require('seneca')()
 ## Action Patterns
 
 
-### `role:registry, cmd:set`
+#### `role:registry, cmd:set`
 
 Set the value of a key.
 
@@ -99,7 +99,7 @@ Parameters:
 Response: none.
 
 
-### `role:registry, cmd:get`
+#### `role:registry, cmd:get`
 
 Get the value of a key.
 
@@ -112,7 +112,7 @@ Response:
    * value: any; key value; deserialized from JSON
 
 
-### `role:registry, cmd:list`
+#### `role:registry, cmd:list`
 
 List the sub keys of a key, under the tree structure, with _/_ as branch separator.
 
@@ -126,9 +126,9 @@ Response:
    * keys: array[string]; keys in breadth first order
 
 
-### `role:registry, cmd:remove`
+#### `role:registry, cmd:remove`
 
-Remove a the value of a key, and optionally all sub keys.
+Remove the value of a key, and optionally all sub keys.
 
 Parameters:
 

@@ -1,5 +1,5 @@
 /* Copyright (c) 2015 Richard Rodger, MIT License */
-/* jshint node:true, asi:true, eqnull:true */
+/* jshint node:true, asi:true, eqnull:true, loopfunc:true */
 "use strict";
 
 
@@ -74,6 +74,7 @@ function parsekey( keystr ) {
 }
 
 function setparts( store, parts, value ) {
+  /* jshint boss:true */
   var part, current = store
   while( part = parts.shift() ) {
     current = ( current[part] = current[part] || {} )
@@ -121,6 +122,7 @@ function listkeys( store, parts, flags ) {
     })
     var entry
 
+    /* jshint boss:true */
     while( entry = stack.shift() ) {
       list.push(entry.key)
       _.each( _.without(_.keys(entry.current),'$'), function(part) {

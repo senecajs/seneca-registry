@@ -32,7 +32,7 @@
     "docco": "~0.6.3",
     "jshint": "~2.6.0",
     "mocha": "~2.1.0",
-    "seneca": "^0.6.1"
+    "seneca": "~0.6.1"
   },
   "files": [
     "LICENSE.txt",

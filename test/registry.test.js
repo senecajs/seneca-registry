@@ -128,8 +128,10 @@ describe('plugin', function(){
         return true;
       })
 
-      .wait('role:registry,cmd:set,key:k3/x/y,value:v4')
-      .wait('role:registry,cmd:set,key:k3/x/z,value:v5')
+      .wait('role:registry,cmd:set,key:k3,value:v4')
+      .wait('role:registry,cmd:set,key:k3/x,value:v5')
+      .wait('role:registry,cmd:set,key:k3/x/y,value:v6')
+      .wait('role:registry,cmd:set,key:k3/x/z,value:v7')
 
       .wait('role:registry,cmd:list,key:k3,recurse:true')
       .step(function(data){

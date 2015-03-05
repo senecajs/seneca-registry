@@ -117,7 +117,7 @@ function listkeys( store, parts, flags ) {
 
   if( flags.recurse ) {
     var list = []
-    var stack = _.map(_.keys(current),function(part){
+    var stack = _.map(_.without(_.keys(current),'$'),function(part){
       return {key:part,current:current[part]}
     })
     var entry

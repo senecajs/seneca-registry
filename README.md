@@ -1,5 +1,7 @@
 # seneca-registry
 
+[![Join the chat at https://gitter.im/rjrodger/seneca-registry](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/rjrodger/seneca-registry?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Seneca service registry (simplistic single instance). 
 
 This plugin module provides a simplistic service registry based on a

@@ -1,6 +1,6 @@
 # seneca-registry
 
-## Seneca service registry (simplistic single instance). 
+## Seneca service registry (simplistic single instance).
 
 This plugin module provides a simplistic service registry based on a
 key-value store interface. This is similar to the interface provided
@@ -14,6 +14,9 @@ in-memory implementation, primarily for unit-testing purposes.
 This module is a Seneca plugin. For a gentle introduction to Seneca
 itself, see the [senecajs.org](http://senecajs.org) site.
 
+### Seneca compatibility
+
+Supports Seneca versions **1.x** - **3.x**
 
 ## Support
 
@@ -119,7 +122,7 @@ List the sub keys of a key, under the tree structure, with _/_ as branch separat
 Parameters:
 
    * key:     string; key name or partial prefix name of key to query
-   * recurse:  boolean, optional, default: false; if true, list all sub keys, if false, list only child keys 
+   * recurse:  boolean, optional, default: false; if true, list all sub keys, if false, list only child keys
 
 Response:
 
@@ -133,15 +136,6 @@ Remove the value of a key, and optionally all sub keys.
 Parameters:
 
    * key:     string; key name or partial prefix name of key to remove
-   * recurse:  boolean, optional, default: false; if true, remove value and all sub keys, if false, remove only value 
+   * recurse:  boolean, optional, default: false; if true, remove value and all sub keys, if false, remove only value
 
 Response: none
-
-
-
-
-
-
-
-
-

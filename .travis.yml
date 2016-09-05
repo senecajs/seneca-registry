@@ -1,6 +1,18 @@
 language: node_js
+sudo: false
+
+env:
+  - SENECA_VER=@1.x.x
+  - SENECA_VER=@2.x.x
+  - SENECA_VER=@3.x.x
+
 node_js:
-  - "iojs"
-  - "0.12"
-  - "0.11"
-  - "0.10"
+  - '4'
+  - '6'
+
+before_script:
+  - npm uninstall seneca
+  - npm install seneca$SENECA_VER
+
+after_script:
+  - npm run coveralls

@@ -4,7 +4,10 @@
   "description": "Seneca service registry (simplistic single instance).",
   "main": "registry.js",
   "scripts": {
-    "test": "./test.sh",
+    "test": "./test.sh -v -P test -L",
+    "coveralls": "lab -s -P test -r lcov | coveralls",
+    "coverage": "lab -v -P test -r html > docs/coverage.html",
+    "annotate": "docco registry.js -o docs/annotated",
     "build": "./build.sh"
   },
   "repository": {
@@ -26,17 +29,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "lodash": "~2.4.1"
+    "lodash": "4.15.0"
   },
   "devDependencies": {
-    "docco": "~0.6.3",
-    "jshint": "~2.6.0",
-    "mocha": "~2.1.0",
-    "seneca": "~0.6.1"
+    "docco": "0.7.0",
+    "jshint": "~2.9.3",
+    "mocha": "~3.0.2",
+    "seneca": "plugin",
+    "pre-commit": "1.1.x"
   },
   "files": [
-    "LICENSE.txt",
+    "LICENSE",
     "README.md",
     "registry.js"
-  ]
+  ],
+  "pre-commit": [
+   "test"
+ ]
 }

@@ -16,16 +16,12 @@ itself, see the [senecajs.org](http://senecajs.org) site.
 
 ### Seneca compatibility
 
-Supports Seneca versions **1.x** - **3.x**
+Supports Seneca versions **3.x** and above.
 
 ## Support
 
 If you're using this module, feel free to contact me on twitter if you
 have any questions! :) [@rjrodger](http://twitter.com/rjrodger)
-
-Current Version: 0.1.0
-
-Tested on: Node 0.10.36, Seneca 0.6.1
 
 [![Gitter chat](https://badges.gitter.im/rjrodger/seneca-registry.png)](https://gitter.im/rjrodger/seneca-registry)
 

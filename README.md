@@ -31,7 +31,7 @@ Tested on: Node 0.10.36, Seneca 0.6.1
 
 [![Build Status](https://travis-ci.org/rjrodger/seneca-registry.png?branch=master)](https://travis-ci.org/rjrodger/seneca-registry)
 
-[Annotated Source Code](http://rjrodger.github.io/seneca-registry/doc/registry.html).
+[Annotated Source Code](http://senecajs.github.io/seneca-registry/doc/registry.html).
 
 
 

@@ -4,15 +4,15 @@
   "description": "Seneca service registry (simplistic single instance).",
   "main": "registry.js",
   "scripts": {
-    "test": "./test.sh -v -P test -L",
+    "test": "lab -v -L -t 90 -I",
     "coveralls": "lab -s -P test -r lcov | coveralls",
-    "coverage": "lab -v -P test -r html > docs/coverage.html",
+    "coverage": "lab -v -P test -L -t 90 -r html > docs/coverage.html",
     "annotate": "docco registry.js -o docs/annotated",
-    "build": "./build.sh"
+    "prettier": "prettier --write --no-semi --single-quote *.js lib/*.js test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rjrodger/seneca-registry"
+    "url": "https://github.com/senecajs/seneca-registry"
   },
   "keywords": [
     "seneca",
@@ -29,15 +29,16 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.15.0"
+    "lodash": "4.17.4"
   },
   "devDependencies": {
-    "seneca-chain": "senecajs-labs/seneca-chain",
+    "code": "4.1.x",
     "docco": "0.7.0",
-    "jshint": "~2.9.3",
-    "mocha": "~3.0.2",
+    "lab": "13.1.x",
+    "pre-commit": "1.2.x",
+    "prettier": "1.4.x",
     "seneca": "plugin",
-    "pre-commit": "1.1.x"
+    "seneca-chain": "senecajs-labs/seneca-chain"
   },
   "files": [
     "LICENSE",
@@ -45,6 +46,8 @@
     "registry.js"
   ],
   "pre-commit": [
-   "test"
- ]
+    "prettier",
+    "test",
+    "annotate"
+  ]
 }

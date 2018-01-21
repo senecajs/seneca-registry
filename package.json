@@ -44,10 +44,5 @@
     "LICENSE",
     "README.md",
     "registry.js"
-  ],
-  "pre-commit": [
-    "prettier",
-    "test",
-    "annotate"
   ]
 }

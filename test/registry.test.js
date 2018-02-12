@@ -121,4 +121,12 @@ describe('plugin', function() {
         .end()
     })
   })
+
+  it('intern', function(done) {
+    var intern = require('..').intern
+
+    Assert.equal(''+intern.parsekey(),''+[''])
+    
+    done()
+  })
 })

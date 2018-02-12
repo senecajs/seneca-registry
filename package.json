@@ -1,10 +1,10 @@
 {
   "name": "seneca-registry",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Seneca service registry (simplistic single instance).",
   "main": "registry.js",
   "scripts": {
-    "test": "lab -v -L -t 90 -I",
+    "test": "lab -v -P test -L -t 90 -I",
     "coveralls": "lab -s -P test -r lcov | coveralls",
     "coverage": "lab -v -P test -L -t 90 -r html > docs/coverage.html",
     "annotate": "docco registry.js -o docs/annotated",

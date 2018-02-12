@@ -1,8 +1,10 @@
-/* Copyright (c) 2015 Richard Rodger, MIT License */
-/* jshint node:true, asi:true, eqnull:true, loopfunc:true */
+/* Copyright (c) 2015-2018 Richard Rodger, MIT License */
+
 'use strict'
 
-var _ = require('lodash')
+const _ = require('lodash')
+
+const intern = {}
 
 module.exports = function() {
   var seneca = this
@@ -15,29 +17,29 @@ module.exports = function() {
   seneca.add('role:registry,cmd:remove', cmd_remove)
   seneca.add('role:registry,cmd:list', cmd_list)
 
-  function cmd_set(args, done) {
-    var keyparts = parsekey(args.key)
-    setparts(store, keyparts, args.value)
+  function cmd_set(msg, done) {
+    var keyparts = intern.parsekey(msg.key)
+    setparts(store, keyparts, msg.value)
     done()
   }
 
-  function cmd_get(args, done) {
-    var keyparts = parsekey(args.key)
+  function cmd_get(msg, done) {
+    var keyparts = intern.parsekey(msg.key)
     done(null, { value: getparts(store, keyparts) })
   }
 
-  function cmd_remove(args, done) {
-    var keyparts = parsekey(args.key)
-    removeparts(store, keyparts, { recurse: args.recurse })
+  function cmd_remove(msg, done) {
+    var keyparts = intern.parsekey(msg.key)
+    removeparts(store, keyparts, { recurse: msg.recurse })
     done()
   }
 
-  function cmd_list(args, done) {
-    var keyparts = parsekey(args.key)
-    done(null, { keys: listkeys(store, keyparts, { recurse: args.recurse }) })
+  function cmd_list(msg, done) {
+    var keyparts = intern.parsekey(msg.key)
+    done(null, { keys: listkeys(store, keyparts, { recurse: msg.recurse }) })
   }
 
-  seneca.add('init:registry', function(args, done) {
+  seneca.add('init:registry', function(msg, done) {
     // For *real* registries, execute async init calls as per registry Node.js API
     // to establish connection to registry cluster.
     store = {}
@@ -56,13 +58,15 @@ module.exports = function() {
   }
 }
 
-function parsekey(keystr) {
+module.exports.intern = intern
+
+
+intern.parsekey = function (keystr) {
   var parts = (keystr || '').split('/')
   return parts
 }
 
 function setparts(store, parts, value) {
-  /*eslint no-cond-assign: 0*/
   var part,
     current = store
   while ((part = parts.shift())) {
@@ -72,7 +76,6 @@ function setparts(store, parts, value) {
 }
 
 function getparts(store, parts) {
-  /*eslint no-cond-assign: 0*/
   var part,
     current = store
   while (current && (part = parts.shift())) {
@@ -81,6 +84,8 @@ function getparts(store, parts) {
   return current ? current.$ : void 0
 }
 
+
+// TODO: needs better testing
 function removeparts(store, parts, flags) {
   var part,
     current = store,
@@ -115,7 +120,6 @@ function listkeys(store, parts, flags) {
     })
     var entry
 
-    /* jshint boss:true */
     while ((entry = stack.shift())) {
       list.push(entry.key)
       _.each(_.without(_.keys(entry.current), '$'), function(part) {

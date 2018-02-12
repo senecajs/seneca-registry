@@ -30,11 +30,13 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* Copyright (c) 2015 Richard Rodger, MIT License */</span>
-<span class="hljs-comment">/* jshint node:true, asi:true, eqnull:true, loopfunc:true */</span>
-<span class="hljs-meta">'use strict'</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* Copyright (c) 2015-2018 Richard Rodger, MIT License */</span>
+<span class="hljs-meta">
+'use strict'</span>
 
-<span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>)
+<span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>)
+
+<span class="hljs-keyword">const</span> intern = {}
 
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> seneca = <span class="hljs-keyword">this</span></pre></div></div>
@@ -59,29 +61,29 @@
   seneca.add(<span class="hljs-string">'role:registry,cmd:remove'</span>, cmd_remove)
   seneca.add(<span class="hljs-string">'role:registry,cmd:list'</span>, cmd_list)
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_set</span>(<span class="hljs-params">args, done</span>) </span>{
-    <span class="hljs-keyword">var</span> keyparts = parsekey(args.key)
-    setparts(store, keyparts, args.value)
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_set</span>(<span class="hljs-params">msg, done</span>) </span>{
+    <span class="hljs-keyword">var</span> keyparts = intern.parsekey(msg.key)
+    setparts(store, keyparts, msg.value)
     done()
   }
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_get</span>(<span class="hljs-params">args, done</span>) </span>{
-    <span class="hljs-keyword">var</span> keyparts = parsekey(args.key)
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_get</span>(<span class="hljs-params">msg, done</span>) </span>{
+    <span class="hljs-keyword">var</span> keyparts = intern.parsekey(msg.key)
     done(<span class="hljs-literal">null</span>, { <span class="hljs-attr">value</span>: getparts(store, keyparts) })
   }
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_remove</span>(<span class="hljs-params">args, done</span>) </span>{
-    <span class="hljs-keyword">var</span> keyparts = parsekey(args.key)
-    removeparts(store, keyparts, { <span class="hljs-attr">recurse</span>: args.recurse })
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_remove</span>(<span class="hljs-params">msg, done</span>) </span>{
+    <span class="hljs-keyword">var</span> keyparts = intern.parsekey(msg.key)
+    removeparts(store, keyparts, { <span class="hljs-attr">recurse</span>: msg.recurse })
     done()
   }
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_list</span>(<span class="hljs-params">args, done</span>) </span>{
-    <span class="hljs-keyword">var</span> keyparts = parsekey(args.key)
-    done(<span class="hljs-literal">null</span>, { <span class="hljs-attr">keys</span>: listkeys(store, keyparts, { <span class="hljs-attr">recurse</span>: args.recurse }) })
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cmd_list</span>(<span class="hljs-params">msg, done</span>) </span>{
+    <span class="hljs-keyword">var</span> keyparts = intern.parsekey(msg.key)
+    done(<span class="hljs-literal">null</span>, { <span class="hljs-attr">keys</span>: listkeys(store, keyparts, { <span class="hljs-attr">recurse</span>: msg.recurse }) })
   }
 
-  seneca.add(<span class="hljs-string">'init:registry'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">args, done</span>) </span>{</pre></div></div>
+  seneca.add(<span class="hljs-string">'init:registry'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">msg, done</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -125,13 +127,14 @@ to establish connection to registry cluster.</p>
   }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parsekey</span>(<span class="hljs-params">keystr</span>) </span>{
+<span class="hljs-built_in">module</span>.exports.intern = intern
+
+intern.parsekey = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">keystr</span>) </span>{
   <span class="hljs-keyword">var</span> parts = (keystr || <span class="hljs-string">''</span>).split(<span class="hljs-string">'/'</span>)
   <span class="hljs-keyword">return</span> parts
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setparts</span>(<span class="hljs-params">store, parts, value</span>) </span>{
-  <span class="hljs-comment">/*eslint no-cond-assign: 0*/</span>
   <span class="hljs-keyword">var</span> part,
     current = store
   <span class="hljs-keyword">while</span> ((part = parts.shift())) {
@@ -141,16 +144,28 @@ to establish connection to registry cluster.</p>
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getparts</span>(<span class="hljs-params">store, parts</span>) </span>{
-  <span class="hljs-comment">/*eslint no-cond-assign: 0*/</span>
   <span class="hljs-keyword">var</span> part,
     current = store
   <span class="hljs-keyword">while</span> (current &amp;&amp; (part = parts.shift())) {
     current = current[part]
   }
   <span class="hljs-keyword">return</span> current ? current.$ : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>
-}
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>TODO: needs better testing</p>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeparts</span>(<span class="hljs-params">store, parts, flags</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeparts</span>(<span class="hljs-params">store, parts, flags</span>) </span>{
   <span class="hljs-keyword">var</span> part,
     current = store,
     parent,
@@ -184,7 +199,6 @@ to establish connection to registry cluster.</p>
     })
     <span class="hljs-keyword">var</span> entry
 
-    <span class="hljs-comment">/* jshint boss:true */</span>
     <span class="hljs-keyword">while</span> ((entry = stack.shift())) {
       list.push(entry.key)
       _.each(_.without(_.keys(entry.current), <span class="hljs-string">'$'</span>), <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">part</span>) </span>{

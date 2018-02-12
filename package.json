@@ -38,7 +38,7 @@
     "pre-commit": "1.2.x",
     "prettier": "1.4.x",
     "seneca": "plugin",
-    "seneca-chain": "senecajs-labs/seneca-chain"
+    "seneca-chain": "0.1.x"
   },
   "files": [
     "LICENSE",

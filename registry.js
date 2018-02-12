@@ -60,8 +60,7 @@ module.exports = function() {
 
 module.exports.intern = intern
 
-
-intern.parsekey = function (keystr) {
+intern.parsekey = function(keystr) {
   var parts = (keystr || '').split('/')
   return parts
 }
@@ -83,7 +82,6 @@ function getparts(store, parts) {
   }
   return current ? current.$ : void 0
 }
-
 
 // TODO: needs better testing
 function removeparts(store, parts, flags) {

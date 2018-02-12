@@ -1,6 +1,6 @@
 {
   "name": "seneca-registry",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Seneca service registry (simplistic single instance).",
   "main": "registry.js",
   "scripts": {

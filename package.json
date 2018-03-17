@@ -8,7 +8,7 @@
     "coveralls": "lab -s -P test -r lcov | coveralls",
     "coverage": "lab -v -P test -L -t 90 -r html > docs/coverage.html",
     "annotate": "docco registry.js -o docs/annotated",
-    "prettier": "prettier --write --no-semi --single-quote *.js lib/*.js test/*.js"
+    "prettier": "prettier --write --no-semi --single-quote registry.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -44,10 +44,5 @@
     "LICENSE",
     "README.md",
     "registry.js"
-  ],
-  "pre-commit": [
-    "prettier",
-    "test",
-    "annotate"
   ]
 }

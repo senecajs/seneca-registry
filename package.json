@@ -1,14 +1,16 @@
 {
   "name": "seneca-registry",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "description": "Seneca service registry (simplistic single instance).",
   "main": "registry.js",
   "scripts": {
-    "test": "lab -v -P test -L -t 90 -I",
-    "coveralls": "lab -s -P test -r lcov | coveralls",
-    "coverage": "lab -v -P test -L -t 90 -r html > docs/coverage.html",
-    "annotate": "docco registry.js -o docs/annotated",
-    "prettier": "prettier --write --no-semi --single-quote *.js lib/*.js test/*.js"
+    "test": "lab -v -P test -L -t 90 -I URL,URLSearchParams,BigUint64Array,BigInt64Array,BigInt,SharedArrayBuffer,Atomics",
+    "coveralls": "lab -s -P test -r lcov -I URL,URLSearchParams | coveralls",
+    "coverage": "lab -v -P test -L -t 90 -r html > coverage.html",
+    "prettier": "prettier --write --no-semi --single-quote *.js lib/*.js test/*.js",
+    "clean-npm": "rm -rf node_modules package-lock.json",
+    "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"`; echo TAG: v$REPO_VERSION; git commit -a -m v$REPO_VERSION; git tag v$REPO_VERSION; git push --tags;",
+    "repo-publish": "npm run repo-tag; npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -29,25 +31,18 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.4"
+    "lodash": "4"
   },
   "devDependencies": {
-    "code": "4.1.x",
-    "docco": "0.7.0",
-    "lab": "13.1.x",
-    "pre-commit": "1.2.x",
-    "prettier": "1.4.x",
+    "code": "4",
+    "lab": "14",
+    "prettier": "1",
     "seneca": "plugin",
-    "seneca-chain": "0.1.x"
+    "seneca-chain": "0"
   },
   "files": [
     "LICENSE",
     "README.md",
     "registry.js"
-  ],
-  "pre-commit": [
-    "prettier",
-    "test",
-    "annotate"
   ]
 }

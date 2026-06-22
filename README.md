@@ -1,35 +1,16 @@
-# seneca-registry
+![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
+> A [Seneca.js][] plugin
 
-## Seneca service registry (simplistic single instance).
+# @seneca/registry
 
-This plugin module provides a simplistic service registry based on a
-key-value store interface. This is similar to the interface provided
-by Consul, etcd and Zookeeper.  The keys are organized into a tree
-structure.
+| ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
+|---|---|
 
-IMPORTANT: this plugin does *not* provide a distributed
-implementation. It merely provides an message pattern interface and an
-in-memory implementation, primarily for unit-testing purposes.
+## Install
 
-This module is a Seneca plugin. For a gentle introduction to Seneca
-itself, see the [senecajs.org](http://senecajs.org) site.
-
-### Seneca compatibility
-
-Supports Seneca versions **3.x** and above.
-
-## Support
-
-If you're using this module, feel free to contact me on twitter if you
-have any questions! :) [@rjrodger](http://twitter.com/rjrodger)
-
-[![Gitter chat](https://badges.gitter.im/rjrodger/seneca-registry.png)](https://gitter.im/rjrodger/seneca-registry)
-
-[![Build Status](https://travis-ci.org/rjrodger/seneca-registry.png?branch=master)](https://travis-ci.org/rjrodger/seneca-registry)
-
-[Annotated Source Code](http://senecajs.github.io/seneca-registry/doc/registry.html).
-
-
+```sh
+npm install seneca-registry
+```
 
 ## Quick Example
 
@@ -48,43 +29,24 @@ require('seneca')()
   .end()
 ```
 
+## More Examples
 
-## Usage
+See [test/](test/) for usage examples.
 
-Keys are strings of the form: _a/b/c_ where each _/_ defines a branch
-of a tree. In simple cases, you can treat keys as simple identifiers
-and ignore this tree structure. In more complex cases you can use the
-tree structure as a namespace mechanism. In particular, you can remove
-and list keys recursively.
+## Motivation
 
+A simplistic single-instance service registry for Seneca microservices.
 
-```js
-require('seneca')()
-  .use('registry')
-  .start()
+## Support
 
-  .wait('role:registry,cmd:set,key:x,value:1')
-  .wait('role:registry,cmd:set,key:x/u,value:2')
-  .wait('role:registry,cmd:set,key:x/v,value:3')
-  .wait('role:registry,cmd:set,key:x/v/y,value:4')
+If you're using this module and need help, you can:
 
-  .wait('role:registry,cmd:list,key:x')
-  .step(function(data){
-    console.log( data.keys ) // == [ 'u', 'v' ]
-    return true;
-  })
+- Post a [github issue][]
+- Tweet to [@senecajs][]
 
-  .wait('role:registry,cmd:list,key:x,recurse:true')
-  .step(function(data){
-    console.log( data.keys ) // == [ 'u', 'v', 'v/y' ]
-    return true;
-  })
+## API
 
-  .end()
-```
-
-## Action Patterns
-
+### Action Patterns
 
 #### `role:registry, cmd:set`
 
@@ -135,3 +97,21 @@ Parameters:
    * recurse:  boolean, optional, default: false; if true, remove value and all sub keys, if false, remove only value
 
 Response: none
+
+## Contributing
+
+The [Senecajs org][] encourages open participation. If you feel you can help in any way, be it with documentation, examples, extra testing, or new features please get in touch.
+
+### Running tests
+
+```sh
+npm run test
+```
+
+## Background
+
+Useful for simple service discovery in small deployments.
+
+[![Gitter chat](https://badges.gitter.im/rjrodger/seneca-registry.png)](https://gitter.im/rjrodger/seneca-registry)
+[![Build Status](https://travis-ci.org/rjrodger/seneca-registry.png?branch=master)](https://travis-ci.org/rjrodger/seneca-registry)
+[Annotated Source Code](http://senecajs.github.io/seneca-registry/doc/registry.html).

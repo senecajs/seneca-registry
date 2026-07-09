@@ -6,6 +6,33 @@
 | ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
 |---|---|
 
+This plugin module provides a simplistic service registry based on a
+key-value store interface. This is similar to the interface provided
+by Consul, etcd and Zookeeper.  The keys are organized into a tree
+structure.
+
+IMPORTANT: this plugin does *not* provide a distributed
+implementation. It merely provides an message pattern interface and an
+in-memory implementation, primarily for unit-testing purposes.
+
+This module is a Seneca plugin. For a gentle introduction to Seneca
+itself, see the [senecajs.org](http://senecajs.org) site.
+
+### Seneca compatibility
+
+Supports Seneca versions **3.x** and above.
+
+## Support
+
+If you're using this module, feel free to contact me on twitter if you
+have any questions! :) [@rjrodger](http://twitter.com/rjrodger)
+
+[![Gitter chat](https://badges.gitter.im/rjrodger/seneca-registry.png)](https://gitter.im/rjrodger/seneca-registry)
+
+[![Build Status](https://travis-ci.org/rjrodger/seneca-registry.png?branch=master)](https://travis-ci.org/rjrodger/seneca-registry)
+
+[Annotated Source Code](http://senecajs.github.io/seneca-registry/doc/registry.html).
+
 ## Install
 
 ```sh

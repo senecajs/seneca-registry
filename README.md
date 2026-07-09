@@ -2,6 +2,9 @@
 
 ## Seneca service registry (simplistic single instance).
 
+| ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
+|---|---|
+
 This plugin module provides a simplistic service registry based on a
 key-value store interface. This is similar to the interface provided
 by Consul, etcd and Zookeeper.  The keys are organized into a tree

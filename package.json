@@ -1,20 +1,18 @@
 {
   "name": "@seneca/registry",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Seneca service registry (simplistic single instance).",
   "main": "registry.js",
   "scripts": {
-    "test": "lab -v -P test -L -t 90 -I URL,URLSearchParams,BigUint64Array,BigInt64Array,BigInt,SharedArrayBuffer,Atomics",
-    "coveralls": "lab -s -P test -r lcov -I URL,URLSearchParams | coveralls",
-    "coverage": "lab -v -P test -L -t 90 -r html > coverage.html",
-    "prettier": "prettier --write --no-semi --single-quote *.js lib/*.js test/*.js",
+    "test": "node --test --experimental-test-coverage --test-coverage-include=registry.js --test-coverage-exclude=\"test/**\" --test-coverage-lines=90 test/registry.test.js",
+    "example": "node test/example.js",
     "clean-npm": "rm -rf node_modules package-lock.json",
     "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"`; echo TAG: v$REPO_VERSION; git commit -a -m v$REPO_VERSION; git tag v$REPO_VERSION; git push --tags;",
     "repo-publish": "npm run repo-tag; npm publish --access public"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/senecajs/seneca-registry"
+    "url": "git+https://github.com/senecajs/seneca-registry.git"
   },
   "keywords": [
     "seneca",
@@ -33,16 +31,22 @@
   "dependencies": {
     "lodash": "4"
   },
+  "peerDependencies": {
+    "seneca": "^4.0.0"
+  },
   "devDependencies": {
-    "code": "4",
-    "lab": "14",
-    "prettier": "1",
-    "seneca": "plugin",
-    "seneca-chain": "0"
+    "seneca": "^4.0.0"
   },
   "files": [
     "LICENSE",
     "README.md",
+    "CHANGES.md",
     "registry.js"
-  ]
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -20,7 +20,8 @@ itself, see the [senecajs.org](http://senecajs.org) site.
 
 ### Seneca compatibility
 
-Supports Seneca versions **3.x** and above.
+Supports Seneca **4.x** (peer dependency `seneca` `^4.0.0`) on Node.js
+24 or later. For Seneca 3 use `seneca-registry` 0.3.2.
 
 ## Support
 
@@ -29,36 +30,42 @@ have any questions! :) [@rjrodger](http://twitter.com/rjrodger)
 
 [![Gitter chat](https://badges.gitter.im/rjrodger/seneca-registry.png)](https://gitter.im/rjrodger/seneca-registry)
 
-[![Build Status](https://travis-ci.org/rjrodger/seneca-registry.png?branch=master)](https://travis-ci.org/rjrodger/seneca-registry)
-
 [Annotated Source Code](http://senecajs.github.io/seneca-registry/doc/registry.html).
 
 ## Install
 
 ```sh
-npm install seneca-registry
+npm install seneca@^4 @seneca/registry
 ```
+
+Versions up to 0.3.2 were published as `seneca-registry`; from version
+1.0.0 the package is `@seneca/registry`.
 
 ## Quick Example
 
 Get and set a key:
 
 ```js
-require('seneca')()
-  .use('registry')
-  .start()
-  .wait('role:registry,cmd:set,key:color,value:red')
-  .wait('role:registry,cmd:get,key:color')
-  .step(function(data){
-    console.log( data.value ) // == "red"
-    return true;
-  })
-  .end()
+const Seneca = require('seneca')
+
+async function main() {
+  const seneca = Seneca().use('@seneca/registry')
+  await seneca.ready()
+
+  await seneca.post('role:registry,cmd:set,key:color,value:red')
+  const out = await seneca.post('role:registry,cmd:get,key:color')
+  console.log(out.value) // red
+
+  await seneca.close()
+}
+
+main()
 ```
 
 ## More Examples
 
-See [test/](test/) for usage examples.
+See [test/example.js](test/example.js) (`npm run example`) and the
+tests in [test/](test/).
 
 ## Motivation
 
@@ -131,14 +138,19 @@ The [Senecajs org][] encourages open participation. If you feel you can help in 
 
 ### Running tests
 
+The tests use the Node.js test runner on Node.js 24 or later, with
+Seneca 4 as a development dependency:
+
 ```sh
-npm run test
+npm install
+npm test
 ```
+
+See [CHANGES.md](CHANGES.md) for the change history.
 
 ## Background
 
 Useful for simple service discovery in small deployments.
 
 [![Gitter chat](https://badges.gitter.im/rjrodger/seneca-registry.png)](https://gitter.im/rjrodger/seneca-registry)
-[![Build Status](https://travis-ci.org/rjrodger/seneca-registry.png?branch=master)](https://travis-ci.org/rjrodger/seneca-registry)
 [Annotated Source Code](http://senecajs.github.io/seneca-registry/doc/registry.html).
